@@ -4,10 +4,14 @@ on:
     branches: [ master ]
 jobs:
   label:
+    name: "Label pull requests"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
-      - uses: actions/labeler@v3
+      - uses: actions/labeler@v4
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           sync-labels: true

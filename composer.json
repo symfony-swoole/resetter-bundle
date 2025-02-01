@@ -1,6 +1,5 @@
 {
   "name": "swoole-bundle/resetter-bundle",
-  "version": "1.0.0",
   "homepage": "https://github.com/swoole-bundle/resetter-bundle",
   "type": "symfony-bundle",
   "description": "Symfony bundle with resetters for various connections, e.g. doctrine/dbal and phpredis.",
