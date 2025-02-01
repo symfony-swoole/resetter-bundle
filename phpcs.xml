@@ -124,6 +124,9 @@
 
   <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
     <exclude-pattern>src/ORM/ResettableEntityManager.php</exclude-pattern>
+    <exclude-pattern>tests/Functional/app/FailoverAwareTest/ConnectionMock.php</exclude-pattern>
+    <exclude-pattern>tests/Functional/app/HttpRequestLifecycleTest/ConnectionMock.php</exclude-pattern>
+    <exclude-pattern>tests/Functional/app/OptimisedAliveKeeperTest/ConnectionMock.php</exclude-pattern>
   </rule>
 
   <rule ref="SlevomatCodingStandard.Classes.RequireAbstractOrFinal">
