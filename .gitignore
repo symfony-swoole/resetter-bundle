@@ -1,0 +1,11 @@
+vendor
+.php-cs-fixer.cache
+.phpunit.result.cache
+.phpunit.cache
+.phpcs-cache
+docker-compose.override.yml
+tests/Functional/app/data/*
+!tests/Functional/app/data/.gitkeep
+mutagen.yml.lock
+/.idea/
+composer.lock

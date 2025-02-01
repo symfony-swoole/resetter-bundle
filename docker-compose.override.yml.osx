@@ -1,0 +1,17 @@
+# https://medium.com/@marickvantuil/speed-up-docker-for-mac-with-mutagen-14c2a2c9cba7
+# mutagen sync create --name=resettableembundle -i .idea  ~/DEV/doctrine-resettable-entity-manager docker://root@resetter-bundle-php7/srv/www
+# in PHPSTORM use a custom Docker container for quality tools with this volume mapping:
+# server-ddd-bundle_ddd_bundle_volume:/srv/www
+# until it is possible to use PHP from docker-compose in quality tools again
+volumes:
+  php_volume: {}
+
+services:
+  # PHP
+  resetter-bundle-php82:
+    volumes:
+      - php_volume:/srv/www
+
+  resetter-bundle-php83:
+    volumes:
+      - php_volume:/srv/www

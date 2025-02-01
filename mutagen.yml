@@ -1,0 +1,13 @@
+sync:
+  defaults:
+    ignore:
+      vcs: false
+      paths:
+        - .DS_Store # macOS files
+        - .idea
+    permissions:
+      defaultFileMode: 644
+      defaultDirectoryMode: 755
+  resettableembundle:
+    alpha: "."
+    beta: "docker://root@resetter-bundle-php82/srv/www"

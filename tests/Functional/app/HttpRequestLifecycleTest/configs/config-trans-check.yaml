@@ -1,0 +1,14 @@
+imports:
+  - {resource: config.yaml}
+
+doctrine:
+  dbal:
+    default_connection: default
+    connections:
+      default:
+        wrapper_class: SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\ConnectionMock
+      excluded:
+        wrapper_class: SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\ConnectionMock
+
+swoole_bundle_resetter:
+  check_active_transactions: true

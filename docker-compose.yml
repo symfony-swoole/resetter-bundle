@@ -1,0 +1,17 @@
+services:
+  # PHP
+  resetter-bundle-php82:
+    container_name: resetter-bundle-php82
+    build: ./docker/php82
+    volumes:
+      - .:/srv/www:delegated
+    environment:
+      - XDEBUG_CONFIG=idekey=PHPSTORM
+
+  resetter-bundle-php83:
+    container_name: resetter-bundle-php83
+    build: ./docker/php83
+    volumes:
+      - .:/srv/www:delegated
+    environment:
+      - XDEBUG_CONFIG=idekey=PHPSTORM
