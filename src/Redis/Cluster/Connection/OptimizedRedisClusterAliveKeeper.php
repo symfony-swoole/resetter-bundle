@@ -35,9 +35,6 @@ final class OptimizedRedisClusterAliveKeeper implements RedisClusterAliveKeeper
         $this->decorated->keepAlive($redis, $connectionName);
     }
 
-    /**
-     * @throws Exception
-     */
     private function isPingNeeded(): bool
     {
         $lastPingAt = $this->lastPingAt;
