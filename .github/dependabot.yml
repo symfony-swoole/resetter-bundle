@@ -13,4 +13,4 @@ updates:
       - dependency-name: "*"
         update-types: [ "version-update:semver-major" ]
       - dependency-name: "symfony/*"
-        versions: ["6.x"]
+        versions: ["7.x"]
