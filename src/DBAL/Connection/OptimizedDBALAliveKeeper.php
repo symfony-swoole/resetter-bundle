@@ -35,9 +35,6 @@ final class OptimizedDBALAliveKeeper implements DBALAliveKeeper
         $this->decorated->keepAlive($connection, $connectionName);
     }
 
-    /**
-     * @throws Exception
-     */
     private function isPingNeeded(): bool
     {
         $lastPingAt = $this->lastPingAt;

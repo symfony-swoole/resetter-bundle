@@ -16,6 +16,7 @@ final class FailoverAwareDBALAliveKeeper implements DBALAliveKeeper
     private readonly ConnectionType $connectionType;
 
     /**
+     * @phpstan-ignore-next-line
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function __construct(

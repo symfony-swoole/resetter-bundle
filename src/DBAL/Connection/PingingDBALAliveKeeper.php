@@ -12,6 +12,7 @@ final class PingingDBALAliveKeeper implements DBALAliveKeeper
 {
     /**
      * @throws Exception
+     * @phpstan-ignore-next-line
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
