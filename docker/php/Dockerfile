@@ -1,4 +1,6 @@
-FROM php:8.2-fpm
+ARG PHP_TAG="8.2-fpm"
+
+FROM php:$PHP_TAG
 
 RUN apt-get update && apt-get install -y git-core zlib1g-dev libzip-dev zip unzip
 RUN docker-php-ext-install zip pdo_mysql
