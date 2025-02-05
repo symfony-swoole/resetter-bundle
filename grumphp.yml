@@ -25,6 +25,11 @@ grumphp:
         - phpparser
         - phplint
         - phpunit
+    php8.4-no-analyse:
+      tasks:
+        - phpparser
+        - phplint
+        - phpunit
   tasks:
     phpcs:
       standard: 'phpcs.xml'

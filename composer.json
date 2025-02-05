@@ -67,6 +67,7 @@
     "grumphp8.2": "grumphp run --testsuite=php8.2",
     "grumphp8.2-no-analyse": "grumphp run --testsuite=php8.2-no-analyse",
     "grumphp8.3-no-analyse": "grumphp run --testsuite=php8.3-no-analyse",
+    "grumphp8.4-no-analyse": "grumphp run --testsuite=php8.4-no-analyse",
     "phpcs": "phpcs --standard=phpcs.xml",
     "phpcbf": "phpcbf --standard=phpcs.xml --extensions=php --tab-width=4 -sp src tests",
     "code-style:check": "php-cs-fixer --config=./.php-cs-fixer.dist.php fix --dry-run --diff --ansi --verbose src tests",

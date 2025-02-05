@@ -15,3 +15,7 @@ services:
   resetter-bundle-php83:
     volumes:
       - php_volume:/srv/www
+
+  resetter-bundle-php84:
+    volumes:
+      - php_volume:/srv/www
