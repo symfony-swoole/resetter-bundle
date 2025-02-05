@@ -20,7 +20,7 @@
     "doctrine/orm": "^2.15|^3.0",
     "symfony/config": "^6.4|^7.0",
     "symfony/dependency-injection": "^6.4|^7.0",
-    "symfony/proxy-manager-bridge": "6.4|^7.0",
+    "symfony/proxy-manager-bridge": "^6.4.13",
     "symfony/yaml": "^6.4|^7.0"
   },
   "autoload": {
