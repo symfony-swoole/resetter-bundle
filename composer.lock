@@ -5567,16 +5567,16 @@
         },
         {
             "name": "psalm/phar",
-            "version": "6.5.1",
+            "version": "6.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/phar.git",
-                "reference": "f7ecaf8740f32d58695cee5ac11663e02b44b223"
+                "reference": "99934f8920430853da7682a616f0eb48e82497d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/phar/zipball/f7ecaf8740f32d58695cee5ac11663e02b44b223",
-                "reference": "f7ecaf8740f32d58695cee5ac11663e02b44b223",
+                "url": "https://api.github.com/repos/psalm/phar/zipball/99934f8920430853da7682a616f0eb48e82497d7",
+                "reference": "99934f8920430853da7682a616f0eb48e82497d7",
                 "shasum": ""
             },
             "require": {
@@ -5596,9 +5596,9 @@
             "description": "Composer-based Psalm Phar",
             "support": {
                 "issues": "https://github.com/psalm/phar/issues",
-                "source": "https://github.com/psalm/phar/tree/6.5.1"
+                "source": "https://github.com/psalm/phar/tree/6.8.0"
             },
-            "time": "2025-02-10T10:05:10+00:00"
+            "time": "2025-02-19T11:18:04+00:00"
         },
         {
             "name": "react/cache",
