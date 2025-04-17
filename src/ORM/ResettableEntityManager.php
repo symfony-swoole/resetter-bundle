@@ -113,86 +113,87 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
         }
     }
 
-    return;
-}
-
-/**
- * @final
- */
-// phpcs:ignore SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal
-class ResettableEntityManager extends EntityManagerDecorator
-{
-    private readonly RepositoryFactory $repositoryFactory;
-
-    public function __construct(
-        Configuration $configuration,
-        EntityManagerInterface $wrapped,
-        private readonly ManagerRegistry $doctrineRegistry,
-        private readonly string $decoratedName,
-    ) {
-        $this->repositoryFactory = $configuration->getRepositoryFactory();
-
-        parent::__construct($wrapped);
-    }
+} else {
 
     /**
-     * @template T as object
-     * @param class-string<T> $className
-     * @return EntityRepository<T>
-     * @throws Exception
-     * @psalm-suppress LessSpecificImplementedReturnType
-     * @psalm-suppress MoreSpecificImplementedParamType
-     * @psalm-suppress MixedReturnTypeCoercion
+     * @final
      */
-    public function getRepository($className): EntityRepository
+    // phpcs:ignore SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal
+    class ResettableEntityManager extends EntityManagerDecorator
     {
-        /** @psalm-suppress MixedReturnTypeCoercion */
-        return $this->repositoryFactory->getRepository($this, $className);
-    }
+        private readonly RepositoryFactory $repositoryFactory;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function createQuery($dql = ''): Query
-    {
-        $query = new Query($this);
+        public function __construct(
+            Configuration                    $configuration,
+            EntityManagerInterface           $wrapped,
+            private readonly ManagerRegistry $doctrineRegistry,
+            private readonly string          $decoratedName,
+        )
+        {
+            $this->repositoryFactory = $configuration->getRepositoryFactory();
 
-        if (! empty($dql)) {
-            $query->setDQL($dql);
+            parent::__construct($wrapped);
         }
 
-        return $query;
-    }
-
-    public function createNativeQuery(string $sql, ResultSetMapping $rsm): NativeQuery
-    {
-        $query = new NativeQuery($this);
-
-        $query->setSQL($sql);
-        $query->setResultSetMapping($rsm);
-
-        return $query;
-    }
-
-    public function createQueryBuilder(): QueryBuilder
-    {
-        return new QueryBuilder($this);
-    }
-
-    public function clearOrResetIfNeeded(): void
-    {
-        if ($this->wrapped->isOpen()) {
-            $this->clear();
-
-            return;
+        /**
+         * @template T as object
+         * @param class-string<T> $className
+         * @return EntityRepository<T>
+         * @throws Exception
+         * @psalm-suppress LessSpecificImplementedReturnType
+         * @psalm-suppress MoreSpecificImplementedParamType
+         * @psalm-suppress MixedReturnTypeCoercion
+         */
+        public function getRepository($className): EntityRepository
+        {
+            /** @psalm-suppress MixedReturnTypeCoercion */
+            return $this->repositoryFactory->getRepository($this, $className);
         }
 
-        $newEntityManager = $this->doctrineRegistry->resetManager($this->decoratedName);
+        /**
+         * {@inheritDoc}
+         */
+        public function createQuery($dql = ''): Query
+        {
+            $query = new Query($this);
 
-        if (!$newEntityManager instanceof EntityManagerInterface) {
-            throw new UnexpectedValueException(
-                sprintf('Invalid entity manager class - %s', $newEntityManager::class),
-            );
+            if (!empty($dql)) {
+                $query->setDQL($dql);
+            }
+
+            return $query;
+        }
+
+        public function createNativeQuery(string $sql, ResultSetMapping $rsm): NativeQuery
+        {
+            $query = new NativeQuery($this);
+
+            $query->setSQL($sql);
+            $query->setResultSetMapping($rsm);
+
+            return $query;
+        }
+
+        public function createQueryBuilder(): QueryBuilder
+        {
+            return new QueryBuilder($this);
+        }
+
+        public function clearOrResetIfNeeded(): void
+        {
+            if ($this->wrapped->isOpen()) {
+                $this->clear();
+
+                return;
+            }
+
+            $newEntityManager = $this->doctrineRegistry->resetManager($this->decoratedName);
+
+            if (!$newEntityManager instanceof EntityManagerInterface) {
+                throw new UnexpectedValueException(
+                    sprintf('Invalid entity manager class - %s', $newEntityManager::class),
+                );
+            }
         }
     }
 }
