@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SwooleBundle\ResetterBundle\Redis\Cluster\Connection;
 
+use Override;
 use Psr\Log\LoggerInterface;
 use RedisCluster;
 use RedisClusterException;
@@ -25,6 +26,7 @@ final class PingingRedisClusterAliveKeeper implements RedisClusterAliveKeeper
         private readonly LoggerInterface $logger,
     ) {}
 
+    #[Override]
     public function keepAlive(RedisCluster $redis, string $connectionName): void
     {
         try {

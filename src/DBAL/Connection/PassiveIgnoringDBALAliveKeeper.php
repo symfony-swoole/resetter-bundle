@@ -6,6 +6,7 @@ namespace SwooleBundle\ResetterBundle\DBAL\Connection;
 
 use Doctrine\DBAL\Connection;
 use Exception;
+use Override;
 use ProxyManager\Proxy\VirtualProxyInterface;
 
 final class PassiveIgnoringDBALAliveKeeper implements DBALAliveKeeper
@@ -17,6 +18,7 @@ final class PassiveIgnoringDBALAliveKeeper implements DBALAliveKeeper
     /**
      * @throws Exception
      */
+    #[Override]
     public function keepAlive(Connection $connection, string $connectionName): void
     {
         if ($connection instanceof VirtualProxyInterface && !$connection->isProxyInitialized()) {

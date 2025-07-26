@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SwooleBundle\ResetterBundle\DBAL\Connection;
 
 use Doctrine\DBAL\Connection;
+use Override;
 use RuntimeException;
 use SwooleBundle\ResetterBundle\Connection\PlatformAliveKeeper as GenericPlatformAliveKeeper;
 
@@ -19,6 +20,7 @@ final class DBALPlatformAliveKeeper implements GenericPlatformAliveKeeper
         private array $aliveKeepers,
     ) {}
 
+    #[Override]
     public function keepAlive(): void
     {
         foreach ($this->aliveKeepers as $connectionName => $aliveKeeper) {

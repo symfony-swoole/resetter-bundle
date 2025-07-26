@@ -23,7 +23,7 @@ final class SwooleBundleResetterExtension extends ConfigurableExtension
      *         }
      *     },
      *     redis_cluster_connections?: array<string, string>,
-     *     ping_interval?: int|false,
+     *     ping_interval?: false|int,
      *     check_active_transactions?: bool
      * } $mergedConfig
      * @throws Exception

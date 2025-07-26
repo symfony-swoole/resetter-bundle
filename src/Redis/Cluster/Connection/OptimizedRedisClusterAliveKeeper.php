@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SwooleBundle\ResetterBundle\Redis\Cluster\Connection;
 
 use Exception;
+use Override;
 use RedisCluster;
 
 final class OptimizedRedisClusterAliveKeeper implements RedisClusterAliveKeeper
@@ -26,6 +27,7 @@ final class OptimizedRedisClusterAliveKeeper implements RedisClusterAliveKeeper
     /**
      * @throws Exception
      */
+    #[Override]
     public function keepAlive(RedisCluster $redis, string $connectionName): void
     {
         if (!$this->isPingNeeded()) {

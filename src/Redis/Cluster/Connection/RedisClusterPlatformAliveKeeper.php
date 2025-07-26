@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SwooleBundle\ResetterBundle\Redis\Cluster\Connection;
 
+use Override;
 use RedisCluster;
 use RuntimeException;
 use SwooleBundle\ResetterBundle\Connection\PlatformAliveKeeper as GenericPlatformAliveKeeper;
@@ -19,6 +20,7 @@ final class RedisClusterPlatformAliveKeeper implements GenericPlatformAliveKeepe
         private readonly array $aliveKeepers,
     ) {}
 
+    #[Override]
     public function keepAlive(): void
     {
         foreach ($this->aliveKeepers as $connectionName => $aliveKeeper) {
