@@ -18,10 +18,10 @@
     "doctrine/dbal": "^4.0|^3.3",
     "doctrine/doctrine-bundle": "^2.10",
     "doctrine/orm": "^2.15|^3.0",
-    "symfony/config": "^6.4|^7.0",
-    "symfony/dependency-injection": "^6.4|^7.0",
+    "symfony/config": "^6.4|^7.1",
+    "symfony/dependency-injection": "^6.4|^7.1",
     "symfony/proxy-manager-bridge": "^6.4.13",
-    "symfony/yaml": "^6.4|^7.0"
+    "symfony/yaml": "^6.4|^7.1"
   },
   "autoload": {
     "psr-4": {
@@ -43,11 +43,11 @@
     "roave/security-advisories": "dev-master",
     "slevomat/coding-standard": "^8.15",
     "squizlabs/php_codesniffer": "^3.11",
-    "symfony/browser-kit": "^6.4|^7.0",
-    "symfony/flex": "^2.3",
-    "symfony/framework-bundle": "^6.4 || ^7.0",
-    "symfony/http-kernel": "^6.4 || ^7.0",
-    "symfony/phpunit-bridge": "^6.4 || ^7.0",
+    "symfony/browser-kit": "^6.4|^7.1",
+    "symfony/flex": "^2.8",
+    "symfony/framework-bundle": "^6.4|^7.1",
+    "symfony/http-kernel": "^6.4|^7.1",
+    "symfony/phpunit-bridge": "^6.4|^7.1",
     "symplify/config-transformer": "^12.0"
   },
   "autoload-dev": {
