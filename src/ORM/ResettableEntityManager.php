@@ -124,12 +124,11 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
         private readonly RepositoryFactory $repositoryFactory;
 
         public function __construct(
-            Configuration                    $configuration,
-            EntityManagerInterface           $wrapped,
+            Configuration $configuration,
+            EntityManagerInterface $wrapped,
             private readonly ManagerRegistry $doctrineRegistry,
-            private readonly string          $decoratedName,
-        )
-        {
+            private readonly string $decoratedName,
+        ) {
             $this->repositoryFactory = $configuration->getRepositoryFactory();
 
             parent::__construct($wrapped);
