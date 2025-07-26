@@ -52,6 +52,7 @@ grumphp:
       triggered_by: ['php']
     phpparser:
       ignore_patterns:
+        - src/ORM/ResettableEntityManager.php
         - tests/
       kind: php7
       visitors:
