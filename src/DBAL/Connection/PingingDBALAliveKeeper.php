@@ -7,6 +7,7 @@ namespace SwooleBundle\ResetterBundle\DBAL\Connection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\ConnectionLost;
 use Exception;
+use Override;
 
 final class PingingDBALAliveKeeper implements DBALAliveKeeper
 {
@@ -16,6 +17,7 @@ final class PingingDBALAliveKeeper implements DBALAliveKeeper
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+    #[Override]
     public function keepAlive(Connection $connection, string $connectionName): void
     {
         $query = $connection->getDatabasePlatform()->getDummySelectSQL();

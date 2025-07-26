@@ -7,6 +7,7 @@ namespace SwooleBundle\ResetterBundle\DBAL\Connection\FailoverAware;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\DriverException;
 use Exception;
+use Override;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use SwooleBundle\ResetterBundle\DBAL\Connection\DBALAliveKeeper;
@@ -30,6 +31,7 @@ final class FailoverAwareDBALAliveKeeper implements DBALAliveKeeper
      * @throws Exception
      */
     //phpcs:ignore SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
+    #[Override]
     public function keepAlive(Connection $connection, string $connectionName): void
     {
         try {

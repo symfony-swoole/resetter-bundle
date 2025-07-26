@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SwooleBundle\ResetterBundle\Connection;
 
 use Exception;
+use Override;
 use SwooleBundle\ResetterBundle\RequestCycle\Initializer;
 
 final class ConnectionsHandler implements Initializer
@@ -19,6 +20,7 @@ final class ConnectionsHandler implements Initializer
     /**
      * @throws Exception
      */
+    #[Override]
     public function initialize(): void
     {
         foreach ($this->aliveKeepers as $aliveKeeper) {

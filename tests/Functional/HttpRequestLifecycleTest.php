@@ -143,6 +143,7 @@ final class HttpRequestLifecycleTest extends TestCase
         $wrapped = $wrappedProperty->getValue($em);
 
         $client = self::createClient();
+        /** @var EntityManagerChecker $checker */
         $checker = $client->getContainer()->get(EntityManagerChecker::class . '.default');
         $client->disableReboot();
         $client->request('GET', '/persist-error');

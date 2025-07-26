@@ -6,6 +6,7 @@ namespace SwooleBundle\ResetterBundle\DBAL\Connection;
 
 use Doctrine\DBAL\Connection;
 use Exception;
+use Override;
 
 final class OptimizedDBALAliveKeeper implements DBALAliveKeeper
 {
@@ -26,6 +27,7 @@ final class OptimizedDBALAliveKeeper implements DBALAliveKeeper
     /**
      * @throws Exception
      */
+    #[Override]
     public function keepAlive(Connection $connection, string $connectionName): void
     {
         if (!$this->isPingNeeded()) {

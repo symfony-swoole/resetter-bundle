@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SwooleBundle\ResetterBundle\Redis\Cluster\Connection;
 
+use Override;
 use ProxyManager\Proxy\VirtualProxyInterface;
 use RedisCluster;
 
@@ -13,6 +14,7 @@ final class PassiveIgnoringRedisClusterAliveKeeper implements RedisClusterAliveK
         private readonly RedisClusterAliveKeeper $decorated,
     ) {}
 
+    #[Override]
     public function keepAlive(RedisCluster $redis, string $connectionName): void
     {
         if ($redis instanceof VirtualProxyInterface && !$redis->isProxyInitialized()) {
