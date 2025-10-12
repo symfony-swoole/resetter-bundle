@@ -8,3 +8,8 @@ tests/Functional/app/data/*
 !tests/Functional/app/data/.gitkeep
 mutagen.yml.lock
 /.idea/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
