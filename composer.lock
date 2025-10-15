@@ -4943,16 +4943,16 @@
         },
         {
             "name": "phpro/grumphp-shim",
-            "version": "v2.15.0",
+            "version": "v2.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpro/grumphp-shim.git",
-                "reference": "7e63fa60373c25788813357a784e65be35ee808a"
+                "reference": "006300ac5fa2fab8ccc679c89a463fba56216095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpro/grumphp-shim/zipball/7e63fa60373c25788813357a784e65be35ee808a",
-                "reference": "7e63fa60373c25788813357a784e65be35ee808a",
+                "url": "https://api.github.com/repos/phpro/grumphp-shim/zipball/006300ac5fa2fab8ccc679c89a463fba56216095",
+                "reference": "006300ac5fa2fab8ccc679c89a463fba56216095",
                 "shasum": ""
             },
             "require": {
@@ -4996,9 +4996,9 @@
             "description": "GrumPHP Phar distribution",
             "support": {
                 "issues": "https://github.com/phpro/grumphp-shim/issues",
-                "source": "https://github.com/phpro/grumphp-shim/tree/v2.15.0"
+                "source": "https://github.com/phpro/grumphp-shim/tree/v2.16.0"
             },
-            "time": "2025-08-28T11:52:56+00:00"
+            "time": "2025-10-14T08:47:25+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
