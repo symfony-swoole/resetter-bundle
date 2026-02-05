@@ -19,6 +19,7 @@ use Doctrine\ORM\Repository\RepositoryFactory;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectRepository;
 use Exception;
+use Override;
 use UnexpectedValueException;
 
 // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
@@ -55,6 +56,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
          * @psalm-suppress MoreSpecificImplementedParamType
          * @psalm-suppress MixedReturnTypeCoercion
          */
+        #[Override]
         public function getRepository($className): ObjectRepository
         {
             /** @psalm-suppress MixedReturnTypeCoercion */
@@ -64,6 +66,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
         /**
          * {@inheritDoc}
          */
+        #[Override]
         public function createQuery($dql = ''): Query
         {
             $query = new Query($this);
@@ -80,6 +83,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
          *
          * @phpstan-ignore-next-line
          */
+        #[Override]
         public function createNativeQuery($sql, ResultSetMapping $rsm): NativeQuery
         {
             $query = new NativeQuery($this);
@@ -90,6 +94,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
             return $query;
         }
 
+        #[Override]
         public function createQueryBuilder(): QueryBuilder
         {
             return new QueryBuilder($this);
@@ -143,6 +148,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
          * @psalm-suppress MoreSpecificImplementedParamType
          * @psalm-suppress MixedReturnTypeCoercion
          */
+        #[Override]
         public function getRepository($className): EntityRepository
         {
             /** @psalm-suppress MixedReturnTypeCoercion */
@@ -152,6 +158,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
         /**
          * {@inheritDoc}
          */
+        #[Override]
         public function createQuery($dql = ''): Query
         {
             $query = new Query($this);
@@ -163,6 +170,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
             return $query;
         }
 
+        #[Override]
         public function createNativeQuery(string $sql, ResultSetMapping $rsm): NativeQuery
         {
             $query = new NativeQuery($this);
@@ -173,6 +181,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/orm'), '3.0.0', '<')
             return $query;
         }
 
+        #[Override]
         public function createQueryBuilder(): QueryBuilder
         {
             return new QueryBuilder($this);

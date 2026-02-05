@@ -1,17 +1,5 @@
 services:
   # PHP
-  resetter-bundle-php82:
-    container_name: resetter-bundle-php82
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-      args:
-        PHP_TAG: 8.2-fpm
-    volumes:
-      - .:/srv/www:delegated
-    environment:
-      - XDEBUG_CONFIG=idekey=PHPSTORM
-
   resetter-bundle-php83:
     container_name: resetter-bundle-php83
     build:
@@ -23,6 +11,7 @@ services:
       - .:/srv/www:delegated
     environment:
       - XDEBUG_CONFIG=idekey=PHPSTORM
+      - BOX_REQUIREMENT_CHECKER=0
 
   resetter-bundle-php84:
     container_name: resetter-bundle-php84
@@ -35,3 +24,17 @@ services:
       - .:/srv/www:delegated
     environment:
       - XDEBUG_CONFIG=idekey=PHPSTORM
+      - BOX_REQUIREMENT_CHECKER=0
+
+  resetter-bundle-php85:
+    container_name: resetter-bundle-php85
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+      args:
+        PHP_TAG: 8.5-fpm
+    volumes:
+      - .:/srv/www:delegated
+    environment:
+      - XDEBUG_CONFIG=idekey=PHPSTORM
+      - BOX_REQUIREMENT_CHECKER=0

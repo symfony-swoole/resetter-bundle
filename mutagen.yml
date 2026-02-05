@@ -8,6 +8,7 @@ sync:
     permissions:
       defaultFileMode: 644
       defaultDirectoryMode: 755
+
   resettableembundle:
     alpha: "."
-    beta: "docker://root@resetter-bundle-php82/srv/www"
+    beta: "docker://root@resetter-bundle-php83/srv/www"

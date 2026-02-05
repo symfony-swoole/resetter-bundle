@@ -11,12 +11,12 @@ use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\En
 use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\Entity\TestEntity2;
 use Symfony\Component\HttpFoundation\Response;
 
-final class TestController
+final readonly class TestController
 {
-    private readonly EntityRepository $repository;
+    private EntityRepository $repository;
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private EntityManagerInterface $entityManager,
     ) {
         $this->repository = $entityManager->getRepository(TestEntity2::class);
     }

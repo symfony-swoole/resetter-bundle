@@ -18,33 +18,27 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ '8.3', '8.4' ]
-        symfony-version: ['6.4.*', '7.1.*', '7.2.*', '7.3.*' ]
+        php-version: [ '8.4', '8.5' ]
+        extensions: [ 'redis-5.3.7' ]
+        symfony-version: ['6.4.*', '7.3.*' ]
         symfony-deprecations-helper: [ 'max[direct]=0&baselineFile=./tests/allowed.json' ]
         grumphp-testsuite: [ 'no-analyse' ]
         grumphp-flag: [ '-no-analyse' ]
         include:
-          - php-version: '8.2'
+          - php-version: '8.3'
+            extensions: [ 'redis-5.3.7' ]
             symfony-version: '6.4.*'
             symfony-deprecations-helper: 'max[indirect]=99999&baselineFile=./tests/allowed.json'
             composer-flag: '--prefer-lowest'
             grumphp-flag: '-no-analyse'
             grumphp-testsuite: 'no-analyse'
-          - php-version: '8.2'
+          - php-version: '8.3'
+            extensions: [ 'redis-5.3.7' ]
             symfony-version: '6.4.*'
             symfony-deprecations-helper: 'max[direct]=0&max[indirect]=99999&baselineFile=./tests/allowed.json'
             grumphp-testsuite: 'main'
-          - php-version: '8.2'
-            symfony-version: '7.1.*'
-            symfony-deprecations-helper: 'max[indirect]=99999&baselineFile=./tests/allowed.json'
-            grumphp-flag: '-no-analyse'
-            grumphp-testsuite: 'no-analyse'
-          - php-version: '8.2'
-            symfony-version: '7.2.*'
-            symfony-deprecations-helper: 'max[indirect]=99999&baselineFile=./tests/allowed.json'
-            grumphp-flag: '-no-analyse'
-            grumphp-testsuite: 'no-analyse'
-          - php-version: '8.2'
+          - php-version: '8.3'
+            extensions: [ 'redis-5.3.7' ]
             symfony-version: '7.3.*'
             symfony-deprecations-helper: 'max[indirect]=99999&baselineFile=./tests/allowed.json'
             grumphp-flag: '-no-analyse'
@@ -70,11 +64,11 @@ jobs:
         if: ${{ matrix.grumphp-testsuite == 'no-analyse' }}
         run: composer config extra.symfony.require ${{ matrix.symfony-version }}
 
-      - name: Composer update # run for everything except php 8.2 or SF 5.4 locked in composer.lock
+      - name: Composer update # run for everything except php 8.3 or SF 6.4 locked in composer.lock
         if: ${{ matrix.grumphp-testsuite == 'no-analyse' }}
         run: composer update ${{ matrix.composer-flag }} --prefer-dist --no-interaction
 
-      - name: Composer install # only run for locked dependencies with php 8.2 or SF 6.4 (locked in composer)
+      - name: Composer install # only run for locked dependencies with php 8.3 or SF 6.4 (locked in composer)
         if: ${{ matrix.grumphp-testsuite == 'main' }}
         run: composer install --prefer-dist --no-interaction
 

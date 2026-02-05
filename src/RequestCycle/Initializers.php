@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace SwooleBundle\ResetterBundle\RequestCycle;
 
-final class Initializers
+final readonly class Initializers
 {
     /**
      * @param iterable<Initializer> $initializers
      */
     public function __construct(
-        private readonly iterable $initializers,
+        private iterable $initializers,
     ) {}
 
     public function initialize(): void

@@ -7,6 +7,7 @@ namespace SwooleBundle\ResetterBundle\Tests\Functional;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Override;
 use RedisCluster;
 use ReflectionClass;
 use SwooleBundle\ResetterBundle\ORM\ResettableEntityManager;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class HttpRequestLifecycleTest extends TestCase
 {
+    #[Override]
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -139,7 +141,6 @@ final class HttpRequestLifecycleTest extends TestCase
         self::assertInstanceOf(ResettableEntityManager::class, $em);
         $refl = new ReflectionClass(ResettableEntityManager::class);
         $wrappedProperty = $refl->getProperty('wrapped');
-        $wrappedProperty->setAccessible(true);
         $wrapped = $wrappedProperty->getValue($em);
 
         $client = self::createClient();
@@ -170,7 +171,13 @@ final class HttpRequestLifecycleTest extends TestCase
 
         self::assertSame(4, $checker->getNumberOfChecks());
         self::assertTrue($checker->wasEmptyOnLastCheck());
-        self::assertSame(0, $response->count()); // this means that there was an empty response
+
+        if (version_compare(Kernel::VERSION, '7.4.5') >= 0) {
+            // this means that there was an empty response
+            self::assertSame('<html><head></head><body></body></html>', $response->outerHtml());
+        } else {
+            self::assertSame(0, $response->count()); // this means that there was an empty response
+        }
     }
 
     /**

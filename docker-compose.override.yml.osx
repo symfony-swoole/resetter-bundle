@@ -8,14 +8,14 @@ volumes:
 
 services:
   # PHP
-  resetter-bundle-php82:
-    volumes:
-      - php_volume:/srv/www
-
   resetter-bundle-php83:
     volumes:
       - php_volume:/srv/www
 
   resetter-bundle-php84:
+    volumes:
+      - php_volume:/srv/www
+
+  resetter-bundle-php85:
     volumes:
       - php_volume:/srv/www

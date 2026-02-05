@@ -11,12 +11,12 @@ use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\Ex
 use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\ExcludedEntity\ExcludedTestEntity2;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ExcludedTestController
+final readonly class ExcludedTestController
 {
-    private readonly EntityRepository $repository;
+    private EntityRepository $repository;
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private EntityManagerInterface $entityManager,
     ) {
         $this->repository = $entityManager->getRepository(ExcludedTestEntity2::class);
     }

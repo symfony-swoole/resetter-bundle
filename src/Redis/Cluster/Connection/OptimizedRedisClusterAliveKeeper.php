@@ -13,7 +13,7 @@ final class OptimizedRedisClusterAliveKeeper implements RedisClusterAliveKeeper
     /**
      * @const int
      */
-    private const DEFAULT_PING_INTERVAL = 0;
+    private const int DEFAULT_PING_INTERVAL = 0;
 
     private int $lastPingAt;
 

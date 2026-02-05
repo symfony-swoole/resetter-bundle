@@ -8,10 +8,10 @@ use Override;
 use ProxyManager\Proxy\VirtualProxyInterface;
 use RedisCluster;
 
-final class PassiveIgnoringRedisClusterAliveKeeper implements RedisClusterAliveKeeper
+final readonly class PassiveIgnoringRedisClusterAliveKeeper implements RedisClusterAliveKeeper
 {
     public function __construct(
-        private readonly RedisClusterAliveKeeper $decorated,
+        private RedisClusterAliveKeeper $decorated,
     ) {}
 
     #[Override]

@@ -9,10 +9,10 @@ use Exception;
 use Override;
 use ProxyManager\Proxy\VirtualProxyInterface;
 
-final class PassiveIgnoringDBALAliveKeeper implements DBALAliveKeeper
+final readonly class PassiveIgnoringDBALAliveKeeper implements DBALAliveKeeper
 {
     public function __construct(
-        private readonly DBALAliveKeeper $decorated,
+        private DBALAliveKeeper $decorated,
     ) {}
 
     /**

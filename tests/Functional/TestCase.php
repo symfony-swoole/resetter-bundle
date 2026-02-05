@@ -6,6 +6,7 @@ namespace SwooleBundle\ResetterBundle\Tests\Functional;
 
 use Exception;
 use InvalidArgumentException;
+use Override;
 use SwooleBundle\ResetterBundle\Tests\Functional\app\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -30,6 +31,7 @@ abstract class TestCase extends KernelTestCase
     /**
      * @throws IOException
      */
+    #[Override]
     public static function tearDownAfterClass(): void
     {
         static::deleteTmpDir();
@@ -38,6 +40,7 @@ abstract class TestCase extends KernelTestCase
     /**
      * @throws Exception
      */
+    #[Override]
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -64,6 +67,7 @@ abstract class TestCase extends KernelTestCase
         $filesystem->remove($dir);
     }
 
+    #[Override]
     protected static function getKernelClass(): string
     {
         require_once __DIR__ . '/app/AppKernel.php';
@@ -75,6 +79,7 @@ abstract class TestCase extends KernelTestCase
      * @inheritdoc
      * @throws InvalidArgumentException
      */
+    #[Override]
     protected static function createKernel(array $options = []): KernelInterface
     {
         $class = self::getKernelClass();
