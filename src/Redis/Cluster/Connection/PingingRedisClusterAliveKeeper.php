@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 use RedisCluster;
 use RedisClusterException;
 
-final class PingingRedisClusterAliveKeeper implements RedisClusterAliveKeeper
+final readonly class PingingRedisClusterAliveKeeper implements RedisClusterAliveKeeper
 {
     /**
      * @param array{
@@ -22,8 +22,8 @@ final class PingingRedisClusterAliveKeeper implements RedisClusterAliveKeeper
      * } $constructorArguments
      */
     public function __construct(
-        private readonly array $constructorArguments,
-        private readonly LoggerInterface $logger,
+        private array $constructorArguments,
+        private LoggerInterface $logger,
     ) {}
 
     #[Override]

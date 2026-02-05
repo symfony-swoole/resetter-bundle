@@ -12,16 +12,16 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use SwooleBundle\ResetterBundle\DBAL\Connection\DBALAliveKeeper;
 
-final class FailoverAwareDBALAliveKeeper implements DBALAliveKeeper
+final readonly class FailoverAwareDBALAliveKeeper implements DBALAliveKeeper
 {
-    private readonly ConnectionType $connectionType;
+    private ConnectionType $connectionType;
 
     /**
      * @phpstan-ignore-next-line
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function __construct(
-        private readonly LoggerInterface $logger,
+        private LoggerInterface $logger,
         string $connectionType = ConnectionType::WRITER,
     ) {
         $this->connectionType = ConnectionType::create($connectionType);

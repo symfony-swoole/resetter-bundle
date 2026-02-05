@@ -9,6 +9,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
+use Override;
 use ProxyManager\Proxy\VirtualProxyInterface;
 
 /**
@@ -48,10 +49,12 @@ class ProxyConnectionMock extends Connection implements VirtualProxyInterface
         return null;
     }
 
+    #[Override]
     public function isTransactionActive(): bool
     {
         return false;
     }
 
+    #[Override]
     public function rollBack(): void {}
 }

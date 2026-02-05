@@ -30,7 +30,6 @@ final class OptimisedAliveKeeperTest extends TestCase
         $handler = self::getContainer()->get($doctrineHandlerSvcId);
         $refl = new ReflectionClass(OptimizedDBALAliveKeeper::class);
         $intervalParam = $refl->getProperty('pingIntervalInSeconds');
-        $intervalParam->setAccessible(true);
 
         self::assertSame(10, $intervalParam->getValue($handler));
 
@@ -39,7 +38,6 @@ final class OptimisedAliveKeeperTest extends TestCase
         $handler = self::getContainer()->get($redisHandlerSvcId);
         $refl2 = new ReflectionClass(OptimizedRedisClusterAliveKeeper::class);
         $intervalParam2 = $refl2->getProperty('pingIntervalInSeconds');
-        $intervalParam2->setAccessible(true);
 
         self::assertSame(10, $intervalParam2->getValue($handler));
     }

@@ -8,13 +8,13 @@ use Exception;
 use Override;
 use SwooleBundle\ResetterBundle\RequestCycle\Initializer;
 
-final class ConnectionsHandler implements Initializer
+final readonly class ConnectionsHandler implements Initializer
 {
     /**
      * @param array<PlatformAliveKeeper> $aliveKeepers
      */
     public function __construct(
-        private readonly array $aliveKeepers,
+        private array $aliveKeepers,
     ) {}
 
     /**

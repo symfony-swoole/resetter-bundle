@@ -10,11 +10,11 @@ use Override;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-final class TransactionDiscardingDBALAliveKeeper implements DBALAliveKeeper
+final readonly class TransactionDiscardingDBALAliveKeeper implements DBALAliveKeeper
 {
     public function __construct(
-        private readonly DBALAliveKeeper $decorated,
-        private readonly LoggerInterface $logger,
+        private DBALAliveKeeper $decorated,
+        private LoggerInterface $logger,
     ) {}
 
     /**

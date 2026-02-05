@@ -25,8 +25,8 @@ use Symfony\Component\DependencyInjection\Reference;
 //phpcs:disable
 final class AliveKeeperPass implements CompilerPassInterface
 {
-    public const FAILOVER_CONNECTIONS_PARAM_NAME = 'swoole_bundle_resetter.failover_connections';
-    public const REDIS_CLUSTER_CONNECTIONS_PARAM_NAME =
+    public const string FAILOVER_CONNECTIONS_PARAM_NAME = 'swoole_bundle_resetter.failover_connections';
+    public const string REDIS_CLUSTER_CONNECTIONS_PARAM_NAME =
         'swoole_bundle_resetter.redis_cluster_connections';
 
     public function process(ContainerBuilder $container): void

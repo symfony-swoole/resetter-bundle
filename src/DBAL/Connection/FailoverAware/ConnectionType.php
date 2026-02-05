@@ -6,19 +6,19 @@ namespace SwooleBundle\ResetterBundle\DBAL\Connection\FailoverAware;
 
 use InvalidArgumentException;
 
-final class ConnectionType
+final readonly class ConnectionType
 {
-    public const WRITER = 'writer';
+    public const string WRITER = 'writer';
 
-    public const READER = 'reader';
+    public const string READER = 'reader';
 
-    private const ALLOWED_TYPES = [
+    private const array ALLOWED_TYPES = [
         self::WRITER,
         self::READER,
     ];
 
     private function __construct(
-        private readonly string $type,
+        private string $type,
     ) {}
 
     public static function create(string $type): self

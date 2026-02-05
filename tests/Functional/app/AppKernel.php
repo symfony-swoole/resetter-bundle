@@ -6,6 +6,7 @@ namespace SwooleBundle\ResetterBundle\Tests\Functional\app;
 
 use Exception;
 use InvalidArgumentException;
+use Override;
 use RuntimeException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -42,6 +43,7 @@ final class AppKernel extends Kernel
         parent::__construct($environment, $debug);
     }
 
+    #[Override]
     public function getProjectDir(): string
     {
         return __DIR__;
@@ -67,11 +69,13 @@ final class AppKernel extends Kernel
         return __DIR__;
     }
 
+    #[Override]
     public function getCacheDir(): string
     {
         return sys_get_temp_dir() . '/' . $this->varDir . '/' . $this->testCase . '/cache/' . $this->environment;
     }
 
+    #[Override]
     public function getLogDir(): string
     {
         return sys_get_temp_dir() . '/' . $this->varDir . '/' . $this->testCase . '/logs';
@@ -108,6 +112,7 @@ final class AppKernel extends Kernel
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     protected function getKernelParameters(): array
     {
         $parameters = parent::getKernelParameters();

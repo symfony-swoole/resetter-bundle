@@ -1,11 +1,11 @@
 grumphp:
   git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: './bin/grumphp_hooks/environment_spinup && docker exec -t resetter-bundle-php82'
+    EXEC_GRUMPHP_COMMAND: './bin/grumphp_hooks/environment_spinup && docker exec -t resetter-bundle-php83'
   stop_on_failure: true
   process_timeout: 600
   ignore_unstaged_changes: true
   testsuites:
-    php8.2:
+    php8.3:
       tasks:
         - phpcs
         - phpmd
@@ -15,17 +15,17 @@ grumphp:
         - phpunit
         - phpstan
         - psalm
-    php8.2-no-analyse:
-      tasks:
-        - phpparser
-        - phplint
-        - phpunit
     php8.3-no-analyse:
       tasks:
         - phpparser
         - phplint
         - phpunit
     php8.4-no-analyse:
+      tasks:
+        - phpparser
+        - phplint
+        - phpunit
+    php8.5-no-analyse:
       tasks:
         - phpparser
         - phplint

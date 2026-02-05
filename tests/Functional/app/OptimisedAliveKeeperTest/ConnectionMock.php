@@ -8,6 +8,7 @@ use Composer\InstalledVersions;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
+use Override;
 use PDO;
 
 // phpcs:disable
@@ -26,6 +27,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/dbal'), '4.0.0', '<'
          * @param array<string, mixed>|list<mixed> $params
          * @phpstan-param WrapperParameterTypeArray $types
          */
+        #[Override]
         public function executeQuery(
             string $sql,
             array $params = [],
@@ -83,6 +85,7 @@ if (version_compare(InstalledVersions::getVersion('doctrine/dbal'), '4.0.0', '<'
          * @param array<string, mixed>|list<mixed> $params
          * @phpstan-param WrapperParameterTypeArray $types
          */
+        #[Override]
         public function executeQuery(
             string $sql,
             array $params = [],

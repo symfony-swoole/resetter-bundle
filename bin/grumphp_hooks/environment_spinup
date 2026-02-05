@@ -7,7 +7,8 @@ export PATH="/usr/local/bin:$PATH"
 # Note: this will be replaced by the real command during copy.
 #
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+export BOX_REQUIREMENT_CHECKER=0
 
-if [[ -z `docker-compose ps -q resetter-bundle-php82` ]] || [[ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q resetter-bundle-php82)` ]]; then
+if [[ -z `docker-compose ps -q resetter-bundle-php83` ]] || [[ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q resetter-bundle-php83)` ]]; then
   docker-compose up -d
 fi
