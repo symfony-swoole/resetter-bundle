@@ -17,9 +17,6 @@ final class PassiveIgnoringDBALAliveKeeperTest extends TestCase
     {
         /** @var Connection&MockObject $connectionMock */
         $connectionMock = $this->createMock(ProxyConnectionMock::class);
-        $connectionMock->expects(self::atLeast(1))
-            ->method('isProxyInitialized')
-            ->willReturn(false);
         $connectionMock->expects(self::exactly(0))
             ->method('getDatabasePlatform');
         $connectionName = 'default';
@@ -56,9 +53,6 @@ final class PassiveIgnoringDBALAliveKeeperTest extends TestCase
     {
         /** @var Connection&MockObject $connectionMock */
         $connectionMock = $this->createMock(ProxyConnectionMock::class);
-        $connectionMock->expects(self::atLeast(1))
-            ->method('isProxyInitialized')
-            ->willReturn(true);
         $connectionMock->expects(self::atLeast(1))
             ->method('isConnected')
             ->willReturn(true);

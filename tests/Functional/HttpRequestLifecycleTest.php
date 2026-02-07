@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SwooleBundle\ResetterBundle\Tests\Functional;
 
+use Composer\InstalledVersions;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -13,7 +14,8 @@ use ReflectionClass;
 use SwooleBundle\ResetterBundle\ORM\ResettableEntityManager;
 use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\ConnectionMock;
 use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\EntityManagerChecker;
-use Symfony\Component\HttpKernel\Kernel;
+use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\RedisClusterSpy;
+use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\RedisClusterSpyStateManager;
 
 final class HttpRequestLifecycleTest extends TestCase
 {
@@ -27,25 +29,26 @@ final class HttpRequestLifecycleTest extends TestCase
 
     public function testDoNotPingConnectionsOnRequestStartIfConnectionIsNotOpen(): void
     {
+        RedisClusterSpyStateManager::reset();
         $this->setUpInternal();
         $client = self::createClient();
 
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get('doctrine.orm.default_entity_manager');
         $connection = $em->getConnection();
-        $redisCluster = self::getContainer()->get(RedisCluster::class);
-        $redisCluster->setIsProxyInitialized(false);
+        $defaultRedisState = RedisClusterSpyStateManager::getFor('default');
 
         self::assertFalse($connection->isConnected());
-        self::assertFalse($redisCluster->wasConstructorCalled());
+        self::assertSame(0, $defaultRedisState->constructorCalls());
         $client->request('GET', '/dummy'); // this action does nothing with the database
         self::assertFalse($connection->isConnected());
-        // redis cluster does not provide conenction instance without creating the connection
-        self::assertFalse($redisCluster->wasConstructorCalled());
+        // redis cluster does not provide any connection instance without creating the connection
+        self::assertSame(0, $defaultRedisState->constructorCalls());
     }
 
     public function testPingConnectionsOnRequestStart(): void
     {
+        RedisClusterSpyStateManager::reset();
         $this->setUpInternal('configs/config-conn-mock.php');
         $client = self::createClient([], 'configs/config-conn-mock.php');
 
@@ -57,26 +60,25 @@ final class HttpRequestLifecycleTest extends TestCase
         $emExcluded = self::getContainer()->get('doctrine.orm.excluded_entity_manager');
         /** @var ConnectionMock $connectionExcluded */
         $connectionExcluded = $emExcluded->getConnection();
-        $redisCluster = self::getContainer()->get(RedisCluster::class);
-        $redisClusterExcluded = self::getContainer()->get(RedisCluster::class . '2');
+        /** @var RedisClusterSpy $redisCluster */
+        $redisCluster = self::getContainer()->get(RedisCluster::class); // lazy
+        $redisStateDefault = RedisClusterSpyStateManager::getFor('default');
+        $redisStateExcluded = RedisClusterSpyStateManager::getFor('excluded');
 
         self::assertFalse($connection->isConnected());
         self::assertFalse($connectionExcluded->isConnected());
-        self::assertFalse($redisCluster->wasConstructorCalled());
-        self::assertFalse($redisClusterExcluded->wasConstructorCalled());
+        self::assertSame(0, $redisStateDefault->constructorCalls());
+        self::assertSame(0, $redisStateExcluded->constructorCalls());
         $connection->getNativeConnection(); // simulates real connection usage, calls connect() internally
         $connectionExcluded->getNativeConnection(); // simulates real connection usage, calls connect() internally
+        $redisCluster->ping('hello'); // simulates connection call
         $client->request('GET', '/dummy'); // this action does nothing with the database
         self::assertTrue($connection->isConnected());
         self::assertSame('SELECT 1', $connection->getQuery());
         self::assertNull($connectionExcluded->getQuery());
         self::assertTrue($connectionExcluded->isConnected());
-        self::assertTrue($redisCluster->wasConstructorCalled());
-        self::assertSame(
-            $redisCluster->getConstructorParametersFirst(),
-            $redisCluster->getConstructorParametersSecond()
-        );
-        self::assertFalse($redisClusterExcluded->wasConstructorCalled());
+        self::assertSame(1, $redisStateDefault->constructorCalls());
+        self::assertSame(0, $redisStateExcluded->constructorCalls());
     }
 
     public function testCheckIfConnectionsHaveActiveTransactionsOnRequestStart(): void
@@ -172,52 +174,12 @@ final class HttpRequestLifecycleTest extends TestCase
         self::assertSame(4, $checker->getNumberOfChecks());
         self::assertTrue($checker->wasEmptyOnLastCheck());
 
-        if (version_compare(Kernel::VERSION, '7.4.5') >= 0) {
+        if (version_compare(InstalledVersions::getPrettyVersion('symfony/dom-crawler'), '7.3.10') >= 0) {
             // this means that there was an empty response
             self::assertSame('<html><head></head><body></body></html>', $response->outerHtml());
         } else {
             self::assertSame(0, $response->count()); // this means that there was an empty response
         }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testExcludedEmWillBeResetOnErrorWithServicesResetterButRepositoryWontBeResetted(): void
-    {
-        if (version_compare(Kernel::VERSION, '6.2.0') >= 0) {
-            $this->markTestSkipped('This test is not needed with Symfony 6.2');
-
-            return;
-        }
-
-        $this->setUpInternal();
-
-        /** @var EntityManagerInterface $em */
-        $em = self::getContainer()->get('doctrine.orm.excluded_entity_manager');
-        self::assertNotInstanceOf(ResettableEntityManager::class, $em);
-
-        $client = self::createClient();
-        $checker = $client->getContainer()->get(EntityManagerChecker::class . '.excluded');
-        $client->disableReboot();
-        $client->request('GET', '/persist-error-excluded');
-
-        self::assertSame(1, $checker->getNumberOfChecks());
-        self::assertTrue($checker->wasEmptyOnLastCheck());
-
-        $client->request('GET', '/persist-error-excluded');
-
-        self::assertSame(2, $checker->getNumberOfChecks());
-        self::assertTrue($checker->wasEmptyOnLastCheck());
-
-        $response = $client->request('GET', '/remove-all-excluded');
-
-        self::assertTrue($checker->wasEmptyOnLastCheck());
-        self::assertNotSame(0, $response->count());
-        self::assertStringContainsString(
-            'Detached entity SwooleBundle\\ResetterBundle\\Tests\\Functional\\app\\HttpRequestLifecycleTest\\ExcludedEntity\\ExcludedTestEntity2', // phpcs:ignore
-            $response->html()
-        );
     }
 
     /**
@@ -245,6 +207,7 @@ final class HttpRequestLifecycleTest extends TestCase
         self::assertTrue($checker->wasEmptyOnLastCheck());
     }
 
+    #[Override]
     protected static function getTestCase(): string
     {
         return 'HttpRequestLifecycleTest';

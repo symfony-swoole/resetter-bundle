@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace SwooleBundle\ResetterBundle\Tests\Unit\Redis\Cluster\Connection;
 
-use Closure;
-use ProxyManager\Proxy\VirtualProxyInterface;
+use Override;
 use RedisCluster;
 use RedisClusterException;
+use Symfony\Component\VarExporter\LazyObjectInterface;
+use Symfony\Component\VarExporter\LazyProxyTrait;
 
 /**
  * @final
  */
-class RedisClusterSpy extends RedisCluster implements VirtualProxyInterface
+class RedisClusterSpy extends RedisCluster implements LazyObjectInterface
 {
+    use LazyProxyTrait;
+
     private int $constructorCalls = 0;
 
     private bool $wasConstructorCalled = false;
@@ -65,35 +68,9 @@ class RedisClusterSpy extends RedisCluster implements VirtualProxyInterface
         return $this->constructorParametersSecond;
     }
 
+    #[Override]
     public function ping(array|string $key_or_address, ?string $message = null): mixed
     {
         throw new RedisClusterException('Test exception');
-    }
-
-    public function setProxyInitializer(?Closure $initializer = null): void {}
-
-    public function getProxyInitializer(): ?Closure
-    {
-        return null;
-    }
-
-    public function initializeProxy(): bool
-    {
-        return true;
-    }
-
-    public function isProxyInitialized(): bool
-    {
-        return $this->initialized;
-    }
-
-    public function setIsProxyInitialized(bool $initialised = true): bool
-    {
-        return $this->initialized = $initialised;
-    }
-
-    public function getWrappedValueHolderValue(): ?object
-    {
-        return null;
     }
 }

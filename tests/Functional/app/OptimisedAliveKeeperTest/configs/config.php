@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Psr\Log\NullLogger;
 use SwooleBundle\ResetterBundle\Tests\Functional\app\HttpRequestLifecycleTest\TestController;
 use SwooleBundle\ResetterBundle\Tests\Functional\app\OptimisedAliveKeeperTest\ConnectionMock;
 use SwooleBundle\ResetterBundle\Tests\Functional\app\OptimisedAliveKeeperTest\RedisClusterSpy;
@@ -48,4 +49,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->arg('$seeds', ['localhost:6379'])
         ->arg('$timeout', 2)
         ->arg('$readTimeout', 2);
+
+    $services->set('logger', NullLogger::class);
 };
