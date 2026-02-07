@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-$config = new PhpCsFixer\Config();
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$config = new Config();
+
 /**
  * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer for rules
  */
@@ -53,7 +57,7 @@ return $config->setRules([
     ])
     ->setRiskyAllowed(true)
     ->setFinder(
-        PhpCsFixer\Finder::create()
+        Finder::create()
             ->exclude('vendor')
             ->in(__DIR__ . '/src')
             ->in(__DIR__ . '/tests')
