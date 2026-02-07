@@ -1,4 +1,0 @@
-swoole_bundle_resetter_do_nothing:
-  methods: ['GET']
-  path: /dummy
-  controller: SwooleBundle\ResetterBundle\Tests\Functional\app\OptimisedAliveKeeperTest\TestController::doNothingAction

@@ -46,8 +46,8 @@ final class HttpRequestLifecycleTest extends TestCase
 
     public function testPingConnectionsOnRequestStart(): void
     {
-        $this->setUpInternal('configs/config-conn-mock.yaml');
-        $client = self::createClient([], 'configs/config-conn-mock.yaml');
+        $this->setUpInternal('configs/config-conn-mock.php');
+        $client = self::createClient([], 'configs/config-conn-mock.php');
 
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get('doctrine.orm.default_entity_manager');
@@ -81,8 +81,8 @@ final class HttpRequestLifecycleTest extends TestCase
 
     public function testCheckIfConnectionsHaveActiveTransactionsOnRequestStart(): void
     {
-        $this->setUpInternal('configs/config-trans-check.yaml');
-        $client = self::createClient([], 'configs/config-trans-check.yaml');
+        $this->setUpInternal('configs/config-trans-check.php');
+        $client = self::createClient([], 'configs/config-trans-check.php');
 
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get('doctrine.orm.default_entity_manager');
@@ -250,7 +250,7 @@ final class HttpRequestLifecycleTest extends TestCase
         return 'HttpRequestLifecycleTest';
     }
 
-    private function setUpInternal(string $rootConfig = 'configs/config.yaml'): void
+    private function setUpInternal(string $rootConfig = 'configs/config.php'): void
     {
         self::bootTestKernel($rootConfig);
         self::runCommand('cache:clear --no-warmup');

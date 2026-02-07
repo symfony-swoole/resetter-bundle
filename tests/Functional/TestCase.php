@@ -123,7 +123,7 @@ abstract class TestCase extends KernelTestCase
         self::getApplication()->run(new StringInput($command));
     }
 
-    protected static function bootTestKernel(string $rootConfig = 'configs/config.yaml'): void
+    protected static function bootTestKernel(string $rootConfig = 'configs/config.php'): void
     {
         self::bootKernel(['test_case' => static::getTestCase(), 'root_config' => $rootConfig]);
     }
