@@ -73,7 +73,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set('RedisCluster2', RedisClusterSpy::class)
         ->public()
-        ->arg('$name', 'default')
+        ->arg('$name', 'excluded')
         ->arg('$seeds', ['localhost:6379'])
         ->arg('$timeout', 2)
         ->arg('$readTimeout', 2);

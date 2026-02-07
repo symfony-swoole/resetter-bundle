@@ -6,40 +6,25 @@ namespace SwooleBundle\ResetterBundle\Tests\Functional\app\OptimisedAliveKeeperT
 
 use RedisCluster;
 
-final class RedisClusterSpy extends RedisCluster
+/**
+ * @final
+ */
+// phpcs:ignore SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal
+class RedisClusterSpy extends RedisCluster
 {
-    private int $constructorCalls = 0;
-
-    private int $pingCount = 0;
-
-    /** @var array<int, mixed> */
-    private array $constructorParametersSecond = [];
-
     public function __construct(
-        ?string $name,
+        private readonly string $name,
         ?array $seeds,
         int|float|null $timeout = null,
         int|float|null $readTimeout = null,
         bool $persistent = false,
         mixed $auth = null,
     ) {
-        $this->constructorCalls++;
-    }
-
-    public function getConstructorCalls(): int
-    {
-        return $this->constructorCalls;
+        RedisClusterSpyStateManager::getFor($this->name)->processConstructorCall();
     }
 
     public function ping(array|string $key_or_address, ?string $message = null): mixed
     {
-        $this->pingCount++;
-
-        return $this->pingCount;
-    }
-
-    public function getPingCount(): int
-    {
-        return $this->pingCount;
+        return RedisClusterSpyStateManager::getFor($this->name)->ping();
     }
 }

@@ -223,23 +223,34 @@ final class AliveKeeperPass implements CompilerPassInterface
      */
     private function createRedisClusterAliveKeepers(ContainerBuilder $container): array
     {
-        // @var array<string, string> $clusterConnections
-
+        /** @var array<string, string>|null $clusterConnections */
         $clusterConnections = $container->getParameter(self::REDIS_CLUSTER_CONNECTIONS_PARAM_NAME);
         $pingInterval = (int) $container->hasParameter(Parameters::PING_INTERVAL)
             ? $container->getParameter(Parameters::PING_INTERVAL)
             : 0;
-        // @var array<string> $excluded
 
+        if (!is_array($clusterConnections) || $clusterConnections === []) {
+            return [];
+        }
+
+        /** @var array<string, string>|null $excluded */
         $excluded = $container->getParameter(Parameters::EXCLUDED_FROM_PROCESSING_REDIS_CLUSTER_CONNECTIONS);
+
+        if (!is_array($excluded) || $excluded === []) {
+            $excluded = [];
+        }
+
         $aliveKeepers = [];
 
         foreach ($clusterConnections as $connectionName => $clusterSvcId) {
+            $clusterDef = $container->findDefinition($clusterSvcId);
+            // this is necessary because otherwise the initializers would always connect to redis cluster on startup
+            $clusterDef->setLazy(true);
+
             if (in_array($connectionName, $excluded, true)) {
                 continue;
             }
 
-            $clusterDef = $container->findDefinition($clusterSvcId);
             $aliveKeeper = new ChildDefinition(PingingRedisClusterAliveKeeper::class);
             $aliveKeeper->setArgument('$constructorArguments', array_values($clusterDef->getArguments()));
             $aliveKeeperSvcId = sprintf(

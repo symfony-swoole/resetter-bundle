@@ -23,6 +23,7 @@ abstract class TestCase extends KernelTestCase
     /**
      * @throws IOException
      */
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         static::deleteTmpDir();
