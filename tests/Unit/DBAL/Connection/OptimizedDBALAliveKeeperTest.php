@@ -19,10 +19,10 @@ final class OptimizedDBALAliveKeeperTest extends TestCase
     {
         ClockMock::register(OptimizedDBALAliveKeeper::class);
 
-        $connectionMock = $this->createMock(Connection::class);
+        $connectionMock = $this->createStub(Connection::class);
         $connectionName = 'default';
         $decoratedAliveKeepr = $this->createMock(DBALAliveKeeper::class);
-        $decoratedAliveKeepr->expects(self::once())
+        $decoratedAliveKeepr->expects($this->once())
             ->method('keepAlive')
             ->with($connectionMock, $connectionName);
 

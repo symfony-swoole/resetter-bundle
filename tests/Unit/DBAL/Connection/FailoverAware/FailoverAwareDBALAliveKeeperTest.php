@@ -20,20 +20,20 @@ final class FailoverAwareDBALAliveKeeperTest extends TestCase
 {
     public function testKeepAliveWriterWithoutReconnect(): void
     {
-        $loggerMock = $this->createMock(LoggerInterface::class);
+        $loggerMock = $this->createStub(LoggerInterface::class);
         $statementMock = $this->createMock(Result::class);
-        $statementMock->expects(self::atLeast(1))
+        $statementMock->expects($this->atLeast(1))
             ->method('fetchOne')
             ->willReturn('0');
 
         /** @var Connection&MockObject $connectionMock */
         $connectionMock = $this->createMock(Connection::class);
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('executeQuery')
             ->withAnyParameters()
             ->willReturn($statementMock);
-        $connectionMock->expects(self::exactly(0))->method('close');
-        $connectionMock->expects(self::exactly(0))->method('getNativeConnection');
+        $connectionMock->expects($this->exactly(0))->method('close');
+        $connectionMock->expects($this->exactly(0))->method('getNativeConnection');
 
         $aliveKeeper = new FailoverAwareDBALAliveKeeper($loggerMock);
         $aliveKeeper->keepAlive($connectionMock, 'default');
@@ -41,21 +41,21 @@ final class FailoverAwareDBALAliveKeeperTest extends TestCase
 
     public function testKeepAliveReaderWithoutReconnect(): void
     {
-        $loggerMock = $this->createMock(LoggerInterface::class);
+        $loggerMock = $this->createStub(LoggerInterface::class);
         $statementMock = $this->createMock(Result::class);
-        $statementMock->expects(self::atLeast(1))
+        $statementMock->expects($this->atLeast(1))
             ->method('fetchOne')
             ->willReturn('1');
 
         /** @var Connection&MockObject $connectionMock */
         $connectionMock = $this->createMock(Connection::class);
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('executeQuery')
             ->withAnyParameters()
             ->willReturn($statementMock);
-        $connectionMock->expects(self::exactly(0))
+        $connectionMock->expects($this->exactly(0))
             ->method('close');
-        $connectionMock->expects(self::exactly(0))
+        $connectionMock->expects($this->exactly(0))
             ->method('getNativeConnection');
 
         $aliveKeeper = new FailoverAwareDBALAliveKeeper($loggerMock, ConnectionType::READER);
@@ -65,23 +65,23 @@ final class FailoverAwareDBALAliveKeeperTest extends TestCase
     public function testKeepAliveWriterWithReconnectOnFailover(): void
     {
         $loggerMock = $this->createMock(LoggerInterface::class);
-        $loggerMock->expects(self::atLeast(1))
+        $loggerMock->expects($this->atLeast(1))
             ->method('log')
             ->with(LogLevel::ALERT);
         $statementMock = $this->createMock(Result::class);
-        $statementMock->expects(self::atLeast(1))
+        $statementMock->expects($this->atLeast(1))
             ->method('fetchOne')
             ->willReturn('1');
 
         /** @var Connection&MockObject $connectionMock */
         $connectionMock = $this->createMock(Connection::class);
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('executeQuery')
             ->withAnyParameters()
             ->willReturn($statementMock);
-        $connectionMock->expects(self::once())
+        $connectionMock->expects($this->once())
             ->method('close');
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('getNativeConnection');
 
         $aliveKeeper = new FailoverAwareDBALAliveKeeper($loggerMock);
@@ -95,22 +95,22 @@ final class FailoverAwareDBALAliveKeeperTest extends TestCase
     public function testKeepAliveReaderWithReconnectOnFailover(): void
     {
         $loggerMock = $this->createMock(LoggerInterface::class);
-        $loggerMock->expects(self::atLeast(1))
+        $loggerMock->expects($this->atLeast(1))
             ->method('log')
             ->with(LogLevel::WARNING);
         $statementMock = $this->createMock(Result::class);
-        $statementMock->expects(self::atLeast(1))
+        $statementMock->expects($this->atLeast(1))
             ->method('fetchOne')
             ->willReturn('0');
 
         $connectionMock = $this->createMock(Connection::class);
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('executeQuery')
             ->withAnyParameters()
             ->willReturn($statementMock);
-        $connectionMock->expects(self::once())
+        $connectionMock->expects($this->once())
             ->method('close');
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('getNativeConnection');
 
         $aliveKeeper = new FailoverAwareDBALAliveKeeper($loggerMock, ConnectionType::READER);
@@ -120,22 +120,22 @@ final class FailoverAwareDBALAliveKeeperTest extends TestCase
     public function testKeepAliveWithReconnectConnectionError(): void
     {
         $loggerMock = $this->createMock(LoggerInterface::class);
-        $loggerMock->expects(self::atLeast(1))
+        $loggerMock->expects($this->atLeast(1))
             ->method('info')
             ->withAnyParameters();
         $statementMock = $this->createMock(Result::class);
-        $statementMock->expects(self::atLeast(1))
+        $statementMock->expects($this->atLeast(1))
             ->method('fetchOne')
-            ->willThrowException($this->createMock(DriverException::class));
+            ->willThrowException($this->createStub(DriverException::class));
 
         $connectionMock = $this->createMock(Connection::class);
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('executeQuery')
             ->withAnyParameters()
             ->willReturn($statementMock);
-        $connectionMock->expects(self::once())
+        $connectionMock->expects($this->once())
             ->method('close');
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('getNativeConnection');
 
         $aliveKeeper = new FailoverAwareDBALAliveKeeper($loggerMock);
