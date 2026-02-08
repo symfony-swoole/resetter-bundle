@@ -11,14 +11,16 @@
       "homepage": "https://github.com/Rastusik"
     }
   ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
     "php": ">=8.3",
     "doctrine/dbal": "^4.4",
     "doctrine/doctrine-bundle": "^2.18|^3.0",
     "doctrine/orm": "^3.2",
-    "symfony/config": "^6.4|^7.3",
-    "symfony/dependency-injection": "^6.4|^7.3",
-    "symfony/yaml": "^6.4|^7.3"
+    "symfony/config": "^6.4|^7.4|^8.0",
+    "symfony/dependency-injection": "^6.4|^7.4|^8.0",
+    "symfony/yaml": "^6.4|^7.4|^8.0"
   },
   "autoload": {
     "psr-4": {
@@ -31,7 +33,7 @@
     "nikic/php-parser": "^5.7",
     "php-parallel-lint/php-parallel-lint": "^1.4",
     "phpcompatibility/php-compatibility": "^10.0.0-alpha2",
-    "phpmd/phpmd": "^2.15",
+    "phpmd/phpmd": "^2.15|3.x-dev",
     "phpro/grumphp-shim": "^2.19",
     "phpstan/phpstan": "^2.1",
     "phpstan/phpstan-webmozart-assert": "^2.0",
@@ -41,12 +43,12 @@
     "roave/security-advisories": "dev-master",
     "slevomat/coding-standard": "^8.27",
     "squizlabs/php_codesniffer": "^4.0",
-    "symfony/browser-kit": "^6.4|^7.3",
-    "symfony/dom-crawler": "^6.4|^7.3",
+    "symfony/browser-kit": "^6.4|^7.4|^8.0",
+    "symfony/dom-crawler": "^6.4|^7.4|^8.0",
     "symfony/flex": "^2.10",
-    "symfony/framework-bundle": "^6.4|^7.3",
-    "symfony/http-kernel": "6.4|^7.3",
-    "symfony/phpunit-bridge": "^6.4|^7.3"
+    "symfony/framework-bundle": "^6.4|^7.4|^8.0",
+    "symfony/http-kernel": "6.4|^7.4|^8.0",
+    "symfony/phpunit-bridge": "^6.4|^7.4|^8.0"
   },
   "autoload-dev": {
     "psr-4": {

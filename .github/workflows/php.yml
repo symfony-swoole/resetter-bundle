@@ -20,7 +20,7 @@ jobs:
       matrix:
         php-version: [ '8.4', '8.5' ]
         extensions: [ 'redis-5.3.7' ]
-        symfony-version: ['6.4.*', '7.3.*' ]
+        symfony-version: ['6.4.*', '7.4.*', '8.0.*' ]
         symfony-deprecations-helper: [ 'max[direct]=0&baselineFile=./tests/allowed.json' ]
         grumphp-testsuite: [ 'no-analyse' ]
         grumphp-flag: [ '-no-analyse' ]
@@ -39,7 +39,7 @@ jobs:
             grumphp-testsuite: 'main'
           - php-version: '8.3'
             extensions: [ 'redis-5.3.7' ]
-            symfony-version: '7.3.*'
+            symfony-version: '7.4.*'
             symfony-deprecations-helper: 'max[indirect]=99999&baselineFile=./tests/allowed.json'
             grumphp-flag: '-no-analyse'
             grumphp-testsuite: 'no-analyse'
