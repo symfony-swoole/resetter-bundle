@@ -8,15 +8,12 @@ use Override;
 use RedisCluster;
 use RedisClusterException;
 use Symfony\Component\VarExporter\LazyObjectInterface;
-use Symfony\Component\VarExporter\LazyProxyTrait;
 
 /**
  * @final
  */
 class RedisClusterSpy extends RedisCluster implements LazyObjectInterface
 {
-    use LazyProxyTrait;
-
     private int $constructorCalls = 0;
 
     private bool $wasConstructorCalled = false;
@@ -26,8 +23,6 @@ class RedisClusterSpy extends RedisCluster implements LazyObjectInterface
 
     /** @var array<int, mixed> */
     private array $constructorParametersSecond = [];
-
-    private bool $initialized = true;
 
     public function __construct(
         ?string $name,
@@ -72,5 +67,23 @@ class RedisClusterSpy extends RedisCluster implements LazyObjectInterface
     public function ping(array|string $key_or_address, ?string $message = null): mixed
     {
         throw new RedisClusterException('Test exception');
+    }
+
+    #[Override]
+    public function isLazyObjectInitialized(bool $partial = false): bool
+    {
+        return true;
+    }
+
+    #[Override]
+    public function initializeLazyObject(): object
+    {
+        return $this;
+    }
+
+    #[Override]
+    public function resetLazyObject(): bool
+    {
+        return true;
     }
 }

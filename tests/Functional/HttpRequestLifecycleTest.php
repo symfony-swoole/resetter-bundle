@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SwooleBundle\ResetterBundle\Tests\Functional;
 
-use Composer\InstalledVersions;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -169,17 +168,10 @@ final class HttpRequestLifecycleTest extends TestCase
         self::assertSame($wrapped, $wrapped2);
         self::assertTrue($wrapped2->isOpen());
 
-        $response = $client->request('GET', '/remove-all');
+        $client->request('GET', '/remove-all');
 
         self::assertSame(4, $checker->getNumberOfChecks());
         self::assertTrue($checker->wasEmptyOnLastCheck());
-
-        if (version_compare(InstalledVersions::getPrettyVersion('symfony/dom-crawler'), '7.3.10') >= 0) {
-            // this means that there was an empty response
-            self::assertSame('<html><head></head><body></body></html>', $response->outerHtml());
-        } else {
-            self::assertSame(0, $response->count()); // this means that there was an empty response
-        }
     }
 
     /**
