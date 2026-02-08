@@ -17,12 +17,12 @@ final class PassiveIgnoringDBALAliveKeeperTest extends TestCase
     {
         /** @var Connection&MockObject $connectionMock */
         $connectionMock = $this->createMock(ProxyConnectionMock::class);
-        $connectionMock->expects(self::exactly(0))
+        $connectionMock->expects($this->exactly(0))
             ->method('getDatabasePlatform');
         $connectionName = 'default';
 
         $decoratedAliveKeeper = $this->createMock(DBALAliveKeeper::class);
-        $decoratedAliveKeeper->expects(self::exactly(0))
+        $decoratedAliveKeeper->expects($this->exactly(0))
             ->method('keepAlive')
             ->with($connectionMock, $connectionName);
 
@@ -33,15 +33,15 @@ final class PassiveIgnoringDBALAliveKeeperTest extends TestCase
     public function testKeepAliveWithoutInitialisedConnectionDoesNotDoAnything(): void
     {
         $connectionMock = $this->createMock(Connection::class);
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('isConnected')
             ->willReturn(false);
-        $connectionMock->expects(self::exactly(0))
+        $connectionMock->expects($this->exactly(0))
             ->method('getDatabasePlatform');
         $connectionName = 'default';
 
         $decoratedAliveKeeper = $this->createMock(DBALAliveKeeper::class);
-        $decoratedAliveKeeper->expects(self::exactly(0))
+        $decoratedAliveKeeper->expects($this->exactly(0))
             ->method('keepAlive')
             ->with($connectionMock, $connectionName);
 
@@ -53,15 +53,15 @@ final class PassiveIgnoringDBALAliveKeeperTest extends TestCase
     {
         /** @var Connection&MockObject $connectionMock */
         $connectionMock = $this->createMock(ProxyConnectionMock::class);
-        $connectionMock->expects(self::atLeast(1))
+        $connectionMock->expects($this->atLeast(1))
             ->method('isConnected')
             ->willReturn(true);
-        $connectionMock->expects(self::exactly(0))
+        $connectionMock->expects($this->exactly(0))
             ->method('getDatabasePlatform');
         $connectionName = 'default';
 
         $decoratedAliveKeeper = $this->createMock(DBALAliveKeeper::class);
-        $decoratedAliveKeeper->expects(self::atLeast(1))
+        $decoratedAliveKeeper->expects($this->atLeast(1))
             ->method('keepAlive')
             ->with($connectionMock, $connectionName);
 

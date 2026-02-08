@@ -19,10 +19,10 @@ final class OptimizedRedisClusterAliveKeeperTest extends TestCase
     {
         ClockMock::register(OptimizedRedisClusterAliveKeeper::class);
 
-        $connectionMock = $this->createMock(RedisCluster::class);
+        $connectionMock = $this->createStub(RedisCluster::class);
         $connectionName = 'default';
         $decoratedAliveKeepr = $this->createMock(RedisClusterAliveKeeper::class);
-        $decoratedAliveKeepr->expects(self::once())
+        $decoratedAliveKeepr->expects($this->once())
             ->method('keepAlive')
             ->with($connectionMock, $connectionName);
 
