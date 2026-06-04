@@ -16,6 +16,10 @@ final class EntityManagerDecoratorPass implements CompilerPassInterface
     //phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength.FunctionLength
     public function process(ContainerBuilder $container): void
     {
+        if (!$container->hasParameter('doctrine.entity_managers')) {
+            return;
+        }
+
         // @var array<string, string> $entityManagers
 
         $entityManagers = $container->getParameter('doctrine.entity_managers');
