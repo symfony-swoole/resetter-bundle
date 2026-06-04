@@ -18,6 +18,15 @@ won't get closed after some period of time.
 
 `composer require swoole-bundle/resetter-bundle`
 
+### Optional: Doctrine ORM
+
+`doctrine/orm` is not a hard requirement. Install it only if you also want the entity managers to be
+wrapped in a `ResettableEntityManager` (cleared/reset between requests):
+
+`composer require doctrine/orm`
+
+When ORM is absent, the entity-manager decoration is skipped automatically.
+
 ## SETUP
 
 ```php
