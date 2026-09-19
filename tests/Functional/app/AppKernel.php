@@ -61,7 +61,18 @@ final class AppKernel extends Kernel
             throw new RuntimeException(sprintf('The bundles file "%s" does not exist.', $filename));
         }
 
-        return include $filename;
+        // Symfony's own format, class => environments, because from Symfony 8.1 the kernel reads this file
+        // itself as well and expects nothing else.
+        /** @var array<class-string<BundleInterface>, array<string, bool>> $bundles */
+        $bundles = include $filename;
+
+        foreach ($bundles as $class => $environments) {
+            if (!($environments[$this->environment] ?? $environments['all'] ?? false)) {
+                continue;
+            }
+
+            yield new $class();
+        }
     }
 
     public function getRootDir(): string

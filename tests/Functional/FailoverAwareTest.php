@@ -16,10 +16,10 @@ final class FailoverAwareTest extends TestCase
     protected function setUp(): void
     {
         self::bootTestKernel();
-        self::runCommand('cache:clear --no-warmup');
-        self::runCommand('cache:warmup');
-        self::runCommand('doctrine:database:drop --force --connection default');
-        self::runCommand('doctrine:schema:create --em default');
+        self::runConsoleCommand('cache:clear --no-warmup');
+        self::runConsoleCommand('cache:warmup');
+        self::runConsoleCommand('doctrine:database:drop --force --connection default');
+        self::runConsoleCommand('doctrine:schema:create --em default');
     }
 
     public function testFailoverAliveKeeperOnRequestStartIsNotActivatedIfConnectionIsNotOpen(): void

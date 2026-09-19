@@ -118,7 +118,7 @@ abstract class TestCase extends KernelTestCase
     /**
      * @throws Exception
      */
-    protected static function runCommand(string $command): void
+    protected static function runConsoleCommand(string $command): void
     {
         $command = sprintf('%s --quiet', $command);
         self::getApplication()->run(new StringInput($command));
