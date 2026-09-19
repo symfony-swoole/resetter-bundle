@@ -17,10 +17,12 @@
     "php": ">=8.3",
     "doctrine/dbal": "^4.4",
     "doctrine/doctrine-bundle": "^2.18|^3.0",
-    "doctrine/orm": "^3.2",
     "symfony/config": "^6.4|^7.4|^8.0",
     "symfony/dependency-injection": "^6.4|^7.4|^8.0",
     "symfony/yaml": "^6.4|^7.4|^8.0"
+  },
+  "suggest": {
+    "doctrine/orm": "^3.2 - enables resetting Doctrine ORM entity managers between requests."
   },
   "autoload": {
     "psr-4": {
@@ -29,6 +31,7 @@
   },
   "require-dev": {
     "ext-redis": "*",
+    "doctrine/orm": "^3.2",
     "friendsofphp/php-cs-fixer": "^3.93",
     "nikic/php-parser": "^5.7",
     "php-parallel-lint/php-parallel-lint": "^1.4",
