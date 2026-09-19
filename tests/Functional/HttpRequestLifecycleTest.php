@@ -208,11 +208,11 @@ final class HttpRequestLifecycleTest extends TestCase
     private function setUpInternal(string $rootConfig = 'configs/config.php'): void
     {
         self::bootTestKernel($rootConfig);
-        self::runCommand('cache:clear --no-warmup');
-        self::runCommand('cache:warmup');
-        self::runCommand('doctrine:database:drop --force --connection default');
-        self::runCommand('doctrine:schema:create --em default');
-        self::runCommand('doctrine:database:drop --force --connection excluded');
-        self::runCommand('doctrine:schema:create --em excluded');
+        self::runConsoleCommand('cache:clear --no-warmup');
+        self::runConsoleCommand('cache:warmup');
+        self::runConsoleCommand('doctrine:database:drop --force --connection default');
+        self::runConsoleCommand('doctrine:schema:create --em default');
+        self::runConsoleCommand('doctrine:database:drop --force --connection excluded');
+        self::runConsoleCommand('doctrine:schema:create --em excluded');
     }
 }

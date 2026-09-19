@@ -7,7 +7,7 @@ use SwooleBundle\ResetterBundle\SwooleBundleResetterBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 
 return [
-    new FrameworkBundle(),
-    new DoctrineBundle(),
-    new SwooleBundleResetterBundle(),
+    FrameworkBundle::class => ['all' => true],
+    DoctrineBundle::class => ['all' => true],
+    SwooleBundleResetterBundle::class => ['all' => true],
 ];

@@ -7,11 +7,13 @@ namespace SwooleBundle\ResetterBundle\Tests\Functional;
 use Exception;
 use InvalidArgumentException;
 use Override;
+use RuntimeException;
 use SwooleBundle\ResetterBundle\Tests\Functional\app\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -118,10 +120,24 @@ abstract class TestCase extends KernelTestCase
     /**
      * @throws Exception
      */
-    protected static function runCommand(string $command): void
+    protected static function runConsoleCommand(string $command): void
     {
-        $command = sprintf('%s --quiet', $command);
-        self::getApplication()->run(new StringInput($command));
+        $output = new BufferedOutput();
+        $exitCode = self::getApplication()->run(new StringInput($command), $output);
+
+        // Loud, because a setup command that fails quietly leaves a test to fail somewhere unrelated - a
+        // schema that was never created shows up as a request counted twice.
+        if ($exitCode !== 0) {
+            throw new RuntimeException(
+                sprintf(
+                    'The command "%s" failed with exit code %d:%s%s',
+                    $command,
+                    $exitCode,
+                    PHP_EOL,
+                    $output->fetch()
+                ),
+            );
+        }
     }
 
     protected static function bootTestKernel(string $rootConfig = 'configs/config.php'): void
